@@ -38,9 +38,9 @@ public class LawOfTheFewModel {
 	SP[0] = 5; // Initial number of succeptible salespeople at time 0
 	IP[0] = 0; // Initial number of infected salespeople at time 0
 
-	double dt = 365 / N; // Total Time of Simulation / N
+	double dt = 100 / N; // Total Time of Simulation (100 days) / N
 
-	for (int i = 0; i < 365; ++i) {
+	for (int i = 0; i < 100; ++i) {
 		double t = i * dt;
 	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1
 		double beta = 0.3;
