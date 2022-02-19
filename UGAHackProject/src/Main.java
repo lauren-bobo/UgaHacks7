@@ -29,7 +29,7 @@ public class Main extends Application {
 	GraphTab graphs;
 	
 	public void start(Stage stage) {
-		
+		printWelcome();
 		stage.setTitle("Tipping Point");
         stage.setScene(scene);
         stage.show();
@@ -54,7 +54,7 @@ public class Main extends Application {
 
 	}
 	
-	public void printWelcome() {
+	private void printWelcome() {
 		File welcomeFile = new File("resources/welcome.txt");
 		Scanner file = null;
 		
