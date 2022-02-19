@@ -1,3 +1,6 @@
-GitRepositoriesView.GitDirectories=
-GitRepositoriesView.GitDirectories.relative=
+GitRepositoriesView.GitDirectories=C\:\\Users\\adamb\\git\\UGAHackathon\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\adamb\\git\\UGAHackathon\\.git;
+RepositorySearchDialogDeepSearch=false
+RepositorySearchDialogSearchPath=C\:\\Users\\adamb\\OneDrive\\Documents\\GitHub\\UGAHackProject
+RepositorySearchDialogSkipHidden=false
 eclipse.preferences.version=1
