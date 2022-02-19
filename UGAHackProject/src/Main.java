@@ -1,6 +1,5 @@
 /**
  * Main class for this project 
- * test123
  */
 import javafx.application.Application;
 import javafx.application.Platform;
