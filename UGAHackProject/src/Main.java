@@ -2,7 +2,6 @@
  * Main class for this project 
  */
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -29,7 +28,7 @@ public class Main extends Application {
 	Person[] people = new Person[100];
 	
 	public void start(Stage stage) {
-		
+
 		stage.setTitle("Tipping Point");
         stage.setScene(scene);
         stage.show();
@@ -50,7 +49,7 @@ public class Main extends Application {
 		app = new VBox();
 		app.getChildren().addAll(menuBar, tabs);
 		
-		scene = new Scene(app, 1000, 1000);
+		scene = new Scene(app, 700, 700);
 
 	}
 }
