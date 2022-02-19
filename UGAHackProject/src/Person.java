@@ -37,6 +37,10 @@ public class Person {
 		return this.isInfected;
 	}
 	
+	public void setInfection(boolean x) {
+		this.isInfected = x;
+	}
+	
 	
 	
 	
