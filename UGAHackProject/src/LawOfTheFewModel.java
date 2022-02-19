@@ -3,6 +3,9 @@ public class LawOfTheFewModel {
 	int N = 100; // Population Size
 
 //Array indices represent the equation's output at a given instant in time
+	
+	double[] TotalSucceptible = new double[N + 1];
+	double[] TotalInfected = new double[N + 1];
 
 	double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
 	double[] IN = new double[N + 1]; // Infected Normal People in Population
@@ -18,7 +21,11 @@ public class LawOfTheFewModel {
 
 // The sum of the totals from each person type should always equal N, the population
 // We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each of 100)
+// And also that the idea starts from one Normal person.
 
+	TotalSucceptible[0] = 99;
+	TotalInfected[0] = 1;
+	
 	SN[0] = 84; // Initial number of succeptible normal people at time 0
 	IN[0] = 1; // Initial number of infected normal people at time 0
 
@@ -31,14 +38,17 @@ public class LawOfTheFewModel {
 	SP[0] = 5; // Initial number of succeptible salespeople at time 0
 	IP[0] = 0; // Initial number of infected salespeople at time 0
 
-	double dt = timeElapsed / N;
+	double dt = 365 / N; // Total Time of Simulation / N
 
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 365; ++i) {
 		double t = i * dt;
-	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1)
+	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1
 		double beta = 0.3;
 				
 	// Differential Equations
+	// Beta * The Total # of Succeptible from the specific category * Total # of Infected
+	// To represent the increased infectivity of our exceptional individuals, their numbers are multiplied by a factor.
+	// 2 for connectors, 2.5 for mavens, 3 for salespeople.
 		double dSNdt = - beta * SN[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dSCdt = - beta * SC[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dSMdt = - beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
@@ -62,9 +72,19 @@ public class LawOfTheFewModel {
 		SP[i + 1] = SP[i] + dSPdt * dt;
 		IP[i + 1] = IP[i] + dIPdt * dt;
 		
-		TotalSucceptible = SN[i + 1] + SC[i + 1] + SM[i + 1] + SP[i + 1];
-		TotalInfected = IN[i + 1] + IC[i + 1] + IM[i + 1] + IP[i + 1];
-		
-	}
+		TotalSucceptible[i + 1] = SN[i + 1] + SC[i + 1] + SM[i + 1] + SP[i + 1];
+		TotalInfected[i + 1] = IN[i + 1] + IC[i + 1] + IM[i + 1] + IP[i + 1];
+	
+	} // for
+	
+} // LawOfTheFewModel
+	
+public double[] getTotalSucceptible() {
+	return TotalSucceptible;
+	
+} // getTotalSucceptible
 
-}
+public double[] getTotalInfected() {
+	return TotalInfected;
+	
+} // getTotalInfected()
