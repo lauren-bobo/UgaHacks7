@@ -11,6 +11,7 @@ public class Person {
 		x = initialX; 
 		y = initialY;
 		t = initialInfected;
+		this.t = t;
 	}
 	
 	public void setX double newX) {
