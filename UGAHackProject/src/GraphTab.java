@@ -10,7 +10,7 @@ public class GraphTab extends Tab {
 	VBox vbox;
 	public GraphTab() {
 		super("Graphs");
-		vbox = new VBox();
+		vbox = new VBox(30);
 		
 		final NumberAxis xAxis = new NumberAxis(); //i
         final NumberAxis yAxis = new NumberAxis(); //total susceptable
