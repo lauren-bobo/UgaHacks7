@@ -3,8 +3,8 @@ public class LawOfTheFewModel {
 	int N = 100; // Population Size
 //Array indices represent the equation's output at a given instant in time
 	
-	double[] TotalSucceptible = new double[N + 1];
-	double[] TotalInfected = new double[N + 1];
+	People[] TotalSucceptible = new double[N + 1];
+	People[] TotalInfected = new double[N + 1];
 
 	double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
 	double[] IN = new double[N + 1]; // Infected Normal People in Population
