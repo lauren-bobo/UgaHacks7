@@ -65,9 +65,6 @@ public class LawOfTheFewModel {
 		TotalSucceptible = SN[i + 1] + SC[i + 1] + SM[i + 1] + SP[i + 1];
 		TotalInfected = IN[i + 1] + IC[i + 1] + IM[i + 1] + IP[i + 1];
 		
-		System.out.println("Total Succeptible: " + TotalSucceptible);
-		System.out.println("Total Infected: " + TotalInfected);
-		
 	}
 
 }
