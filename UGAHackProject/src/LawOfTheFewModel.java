@@ -21,20 +21,20 @@ public class LawOfTheFewModel {
 // The sum of the totals from each person type should always equal N, the population
 // We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each of 100)
 // And also that the idea starts from one Normal person.
-
-	TotalSucceptible[0] = 99;
+	double initialPercentInfected = (1 / N) ; 
+	TotalSucceptible[0] = (N-1);
 	TotalInfected[0] = 1;
 	
-	SN[0] = 84; // Initial number of succeptible normal people at time 0
+	SN[0] = (.15 * N) + (initialPercentInfected); // Initial number of succeptible normal people at time 0
 	IN[0] = 1; // Initial number of infected normal people at time 0
 
-	SC[0] = 5; // Initial number of succeptible connectors at time 0
+	SC[0] = (.05 * N); // Initial number of succeptible connectors at time 0
 	IC[0] = 0; // Initial number of infected connectors at time 0
 	
-	SM[0] = 5; // Initial number of succeptible mavens at time 0
+	SM[0] = (.05 * N); // Initial number of succeptible mavens at time 0
 	IM[0] = 0; // Initial number of infected mavens at time 0
 
-	SP[0] = 5; // Initial number of succeptible salespeople at time 0
+	SP[0] = (.05 * N); // Initial number of succeptible salespeople at time 0
 	IP[0] = 0; // Initial number of infected salespeople at time 0
 
 	double dt = 100 / N; // Total Time of Simulation (100 days) / N

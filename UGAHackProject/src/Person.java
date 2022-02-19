@@ -17,4 +17,4 @@ public class Person {
 	public void setX(double newY) {
 		x = newX
 	}
-	}
+}
