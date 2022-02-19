@@ -1,13 +1,16 @@
 
 public class Person {
-		.
 		private double x;
 		private double y; 
 		public enum type {Normal, Maven, Salesperson, Connector}  
+		boolean isInfected; 
+		public type t;
 		
-	public Person(double initialX, double initialY) {
+		
+	public Person(double initialX, double initialY, type t, boolean initialInfected, ) {
 		x = initialX; 
 		y = initialY;
+		t = initialInfected;
 	}
 	
 	public void setX double newX) {
@@ -24,4 +27,16 @@ public class Person {
 	public double getY() {
 		return y; 
 	}
+	
+	public void setType(type t) {
+		this.t = t;
+	}
+	
+	public boolean isInfected() {
+		return this.isInfected;
+	}
+	
+	
+	
+	
 }
