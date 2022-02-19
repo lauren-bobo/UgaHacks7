@@ -16,7 +16,8 @@ import javafx.scene.control.Label;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
-
+import java.io.*;
+import java.util.*;
 public class Main extends Application {
 	
 	Scene scene;
@@ -51,5 +52,19 @@ public class Main extends Application {
 		
 		scene = new Scene(app, 1000, 1000);
 
+	}
+	
+	public void printWelcome() {
+		File welcomeFile = new File("resources/welcome.txt");
+		Scanner file = null;
+		
+		try {
+			file = new Scanner(welcomeFile);
+			while (file.hasNextLine()) {
+				System.out.println(file.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 }

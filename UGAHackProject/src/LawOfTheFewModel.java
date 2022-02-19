@@ -1,7 +1,6 @@
 public class LawOfTheFewModel {
 
 	int N = 100; // Population Size
-
 //Array indices represent the equation's output at a given instant in time
 	
 	double[] TotalSucceptible = new double[N + 1];
