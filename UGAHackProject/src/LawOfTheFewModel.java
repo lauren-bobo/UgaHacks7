@@ -49,7 +49,7 @@ public Class LawOfTheFewModel {
 		double dIMdt = beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dIPdt = beta * SP[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		
-	// Integrate to find population at given 
+	// Integrate to find population at given i or time 
 		SN[i + 1] = SN[i] + dSNdt * dt;
 		IN[i + 1] = IN[i] + dINdt * dt;
 
