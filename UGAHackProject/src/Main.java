@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -26,6 +25,8 @@ public class Main extends Application {
 	TabPane tabs;
 	SimulationTab simulation;
 	GraphTab graphs;
+	
+	Person[] people = new Person[100];
 	
 	public void start(Stage stage) {
 		
