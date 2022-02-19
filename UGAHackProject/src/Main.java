@@ -10,11 +10,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Tab;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import javafx.scene.Group;
@@ -27,8 +24,8 @@ public class Main extends Application {
 	Menu helpMenu;
 	MenuBar menuBar;
 	TabPane tabs;
-	Tab simulation;
-	Tab graphs;
+	SimulationTab simulation;
+	GraphTab graphs;
 	
 	public void start(Stage stage) {
 		
@@ -44,8 +41,8 @@ public class Main extends Application {
 		menuBar.getMenus().addAll(helpMenu);
 		
 		tabs = new TabPane();
-		simulation = new Tab("Simulation");
-		graphs = new Tab("Graphs");
+		simulation = new SimulationTab();
+		graphs = new GraphTab();
 		tabs.getTabs().addAll(simulation, graphs);
 		
 		//app vbox
