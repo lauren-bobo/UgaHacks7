@@ -1,4 +1,4 @@
-//Adam Wuz Here
+//Adam Wuz Here lol
 import javafx.application.Application;
 
 public class Driver {
