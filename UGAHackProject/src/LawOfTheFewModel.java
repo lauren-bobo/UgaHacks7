@@ -38,7 +38,7 @@ public Class LawOfTheFewModel {
 	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1)
 		double beta = 0.3;
 				
-	//Differential Equations
+	// Differential Equations
 		double dSNdt = - beta * SN[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dSCdt = - beta * SC[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dSMdt = - beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
@@ -48,11 +48,20 @@ public Class LawOfTheFewModel {
 		double dICdt = beta * SC[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dIMdt = beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dIPdt = beta * SP[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
-
 		
+	// Integrate to find population at given 
+		SN[i + 1] = SN[i] + dSNdt * dt;
+		IN[i + 1] = IN[i] + dINdt * dt;
 
-
-
+		SC[i + 1] = SC[i] + dSCdt * dt;
+		IC[i + 1] = IC[i] + dICdt * dt;
+		
+		SM[i + 1] = SM[i] + dSMdt * dt;
+		IM[i + 1] = IM[i] + dIMdt * dt;
+		
+		SP[i + 1] = SP[i] + dSPdt * dt;
+		IP[i + 1] = IP[i] + dIPdt * dt;
+		
 	}
 
 }
