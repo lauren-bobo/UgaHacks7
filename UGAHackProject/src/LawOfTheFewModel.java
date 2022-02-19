@@ -40,7 +40,11 @@ public class LawOfTheFewModel {
 
 	double dt = 100 / N; // Total Time of Simulation (100 days) / N
 
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 100; ++i) { 
+	// i represents the number of steps taken. i must be less than N so it doesn't exceed the array bounds.
+	// In this case, i also represents a given unit time because the # steps = # of days the simulation covers.
+	// This is neccesary so # of succeptible and infecteds can be graphed with respect to i days.
+	// If you want a different total time, like 365 days, i needs to be increased each loop so that it takes 365 steps to reach N.
 		double t = i * dt;
 	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1
 		double beta = 0.3;
