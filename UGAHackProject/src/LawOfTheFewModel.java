@@ -49,7 +49,7 @@ public Class LawOfTheFewModel {
 		double dIMdt = beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		double dIPdt = beta * SP[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 		
-	// Integrate to find population at given i or time 
+	// Integrate to find population at given i + 1 or current time 
 		SN[i + 1] = SN[i] + dSNdt * dt;
 		IN[i + 1] = IN[i] + dINdt * dt;
 
@@ -61,6 +61,9 @@ public Class LawOfTheFewModel {
 		
 		SP[i + 1] = SP[i] + dSPdt * dt;
 		IP[i + 1] = IP[i] + dIPdt * dt;
+		
+		TotalSucceptible = SN[i + 1] + SC[i + 1] + SM[i + 1] + SP[i + 1];
+		TotalInfected = IN[i + 1] + IC[i + 1] + IM[i + 1] + IP[i + 1];
 		
 	}
 
