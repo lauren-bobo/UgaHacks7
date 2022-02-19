@@ -17,6 +17,7 @@ public class LawOfTheFewModel {
 
 	double[] SP = new double[N + 1]; // Succeptible Salespeople in Population
 	double[] IP = new double[N + 1]; // Infected Salespeople in Population
+	//test
 
 // The sum of the totals from each person type should always equal N, the population
 // We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each of 100)
@@ -39,7 +40,7 @@ public class LawOfTheFewModel {
 
 	double dt = 100 / N; // Total Time of Simulation (100 days) / N
 
-	for (int i = 0; i < 100; ++i) { 
+	for (int i = 0 ; i < N ; ++i) { 
 	// i represents the number of steps taken. i must be less than N so it doesn't exceed the array bounds.
 	// In this case, i also represents a given unit time because the # steps = # of days the simulation covers.
 	// This is neccesary so # of succeptible and infecteds can be graphed with respect to i days.
