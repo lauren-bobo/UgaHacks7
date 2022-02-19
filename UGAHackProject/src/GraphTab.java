@@ -12,8 +12,8 @@ public class GraphTab extends Tab {
 		super("Graphs");
 		vbox = new VBox();
 		
-		final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
+		final NumberAxis xAxis = new NumberAxis(); //i
+        final NumberAxis yAxis = new NumberAxis(); //total susceptable
         xAxis.setLabel("Time");
         yAxis.setLabel("Infection%");
 
