@@ -17,7 +17,7 @@ public Class LawOfTheFewModel {
 	double[] IP = new double[N + 1]; // Infected Salespeople in Population
 
 // The sum of the totals from each person type should always equal N, the population
-// We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each)
+// We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each of 100)
 
 	SN[0] = 84; // Initial number of succeptible normal people at time 0
 	IN[0] = 1; // Initial number of infected normal people at time 0
@@ -35,8 +35,21 @@ public Class LawOfTheFewModel {
 
 	for (int i = 0; i < 100; ++i) {
 		double t = i * dt;
+	// People that the idea is shared with per day = 3 Chance of idea spreading = 0.1)
+		double beta = 0.3;
+				
+	//Differential Equations
+		double dSNdt = - beta * SN[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dSCdt = - beta * SC[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dSMdt = - beta * SM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dSPdt = - beta * SP[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		
+		double dINdt = beta * IN[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dICdt = beta * IC[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dIMdt = beta * IM[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
+		double dIPdt = beta * IP[i] * (IN[i] + (2 * IC[i]) + (2.5 * IM[i]) + (3 * IP[i]));
 
-
+		
 
 
 
