@@ -7,6 +7,8 @@ public class Person extends Circle{
 
 	private static final int RADIUS = 3;
 
+	int sphereOfInfluence;
+	double contagiousness;
 	boolean isInfected; 
 	public type t;
 	
