@@ -49,7 +49,7 @@ double stickiness = .30;
 				}
 			}
 		}
-	}
+	} //spread
 	
 } //LawOfFew
 
