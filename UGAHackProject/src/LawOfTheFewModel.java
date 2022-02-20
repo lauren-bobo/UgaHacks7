@@ -29,11 +29,11 @@ double stickiness = .30;
 	 * @param a
 	 * @param b
 	 */
-	public void attemptInfect(Person a, Person b) {
+	public void attemptInfect(Person i, Person j) {
 			int susceptible = Person.getRandomNumber(0,100);
-			int contaminate = (a.getContagiousness() * 100) + (stickiness * 100);
+			int contaminate = (i.getContagiousness() * 100) + (stickiness * 100);
 			if (contaminate > susceptible) {
-				b.setInfection(true);
+				j.setInfection(true);
 			}
 		
 } //attemptInfect
