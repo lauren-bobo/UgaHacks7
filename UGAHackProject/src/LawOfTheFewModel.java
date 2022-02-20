@@ -25,8 +25,8 @@ public class LawOfTheFewModel {
 	 * @param a
 	 * @return
 	 */
-	public double calculateNumInfected(Person [] a) {
-		double numInfected = 0;
+	public int getNumInfected(Person[] a) {
+		int numInfected = 0;
 		for (Person peep: a) {
 			if(peep.isInfected()) {
 				numInfected++;
@@ -35,29 +35,32 @@ public class LawOfTheFewModel {
 		return numInfected; 
 	}
 	
-	public void attemptInfect(Person a) {
-		if (!a.isInfected()){
-			
-		 switch (a.getType()) {
-		 case MAVEN: {
-			 
-		 }
-		 case CONNECTOR : {
-			 
-		 }
-		 case SALESPERSON : {
-			 
-		 }
-		 case NORMAL :{
-			 
-		 }
-		 default : {
-			 
-		 }
-			 
-		 }
-		}
+	/**
+	 * 
+	 */
+	public int getNumHealthy() {
+		int pop = Main.getPopulation();
+		return pop - getNumInfected(); 
 	}
+	/**
+	 * 
+	 * @param a
+	 * @param b
+	 */
+	public void attemptInfect(Person a, Person b) {
+		boolean infected = false; 
+		if (a.isInfected() && !b.isInfected()) {
+			int susceptible = Person.getRandomNumber(0,100);
+			int contaminate = a.getContagiousness() * 100 ;
+			if (susceptible < contaminate) {
+				infected = true; 
+			}
+		}
+		b.setInfection(infected);	
+}
+	
+	
+
 	
 
 // The sum of the totals from each person type should always equal N, the population
