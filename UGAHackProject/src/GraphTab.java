@@ -11,6 +11,7 @@ public class GraphTab extends Tab {
 	VBox vbox;
 	public GraphTab() {
 		super("Graph");
+		this.setClosable(false);
 		vbox = new VBox(30);
 		
 		final NumberAxis xAxis = new NumberAxis(); //i
