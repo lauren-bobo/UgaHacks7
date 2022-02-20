@@ -9,13 +9,13 @@ import javafx.scene.chart.NumberAxis;
 public class GraphTab extends Tab {
 	VBox vbox;
 	public GraphTab() {
-		super("Graphs");
+		super("Time vs Infection");
 		vbox = new VBox(30);
 		
 		final NumberAxis xAxis = new NumberAxis(); //i
         final NumberAxis yAxis = new NumberAxis(); //total susceptable
         xAxis.setLabel("Time");
-        yAxis.setLabel("Infection%");
+        yAxis.setLabel("Infection %");
 
         final LineChart<Number,Number> lineChart = 
                 new LineChart<Number,Number>(xAxis,yAxis);
