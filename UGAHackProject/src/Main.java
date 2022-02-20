@@ -92,20 +92,21 @@ public class Main extends Application {
 		people = new Person[this.getPopulation()];
 		app.getChildren().remove(1);
 		for (int i = 0; i < people.length; i++) {
-			people[i] = new Person();
+			people[i] = new Person(PersonType.valueOf("CONNECTOR"));
 		} //for
 		for (int i = 0; i < people.length; i++) {
 			ArrayList<Person> temp = new ArrayList<>();
-			for (int j = 0; i < people.length; j++) {
+			for (int j = 0; j < people.length; j++) {
 				if (i != j && people[i].distanceTo(people[j]) <= 
 						people[i].getSphereOfInfluence()) {
 					temp.add(people[j]);
 				} //if
 			} //for
 			Person[] proximity = new Person[temp.size()];
-			for (int k = 0; k <proximity.length; k++) {
-				people[i].setProximity(proximity);
+			for (int k = 0; k < proximity.length; k++) {
+				proximity[k] = temp.get(k);
 			} //for
+			people[i].setProximity(proximity);
 		} //for
 		simulation.addPeopleToSimPane(people);
 		

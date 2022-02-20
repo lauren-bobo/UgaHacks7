@@ -20,15 +20,15 @@ public class Person extends Circle {
 	public Person() {
 		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
 			  getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
-		isInfected=false;
+		isInfected = false;
 		this.personType = PersonType.valueOf("NORMAL");
 		typeToValue();
 	} //Person
 		
-	public Person(boolean initialInfected, PersonType personType) {
+	public Person(PersonType personType) {
 		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
 		      getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
-		isInfected = initialInfected;
+		isInfected = false;
 		this.personType = personType;
 		typeToValue();
 	} //Person
@@ -44,19 +44,19 @@ public class Person extends Circle {
 		switch(personType) {
 		case MAVEN:
 			contagiousness = 0.50;
-			sphereOfInfluence = 30;
+			sphereOfInfluence = 50;
 			break;
 		case SALESPERSON:
 			contagiousness = 0.30;
-			sphereOfInfluence = 40;
+			sphereOfInfluence = 70;
 			break;
 		case CONNECTOR:
 			contagiousness = 0.20;
-			sphereOfInfluence = 50;
+			sphereOfInfluence = 100;
 			break;
 		default:
 			contagiousness = 0.10;
-			sphereOfInfluence = 15;
+			sphereOfInfluence = 30;
 			break;
 		} //switch
 	} //typeToValue
@@ -76,6 +76,10 @@ public class Person extends Circle {
 	public void setProximity(Person[] proximity) {
 		this.proximity = proximity;
 	} //setProximity
+	
+	public Person[] getProximity() {
+		return proximity;
+	} //getProximity
 	/*
 	public PersonType getPersonType() {
 		return personType;
