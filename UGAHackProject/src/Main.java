@@ -95,7 +95,6 @@ public class Main extends Application {
 			people[i] = new Person();
 		} //for
 		for (int i = 0; i < people.length; i++) {
-			int proxCount = 0;
 			ArrayList<Person> temp = new ArrayList<>();
 			for (int j = 0; i < people.length; j++) {
 				if (i != j && people[i].distanceTo(people[j]) <= 
