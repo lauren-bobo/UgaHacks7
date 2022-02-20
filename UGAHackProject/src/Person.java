@@ -1,25 +1,31 @@
-
+ enum type {
+	NORMAL, MAVEN, SALESPERSON, CONNECTOR
+			}
 public class Person {
+	
 		private double x;
 		private double y; 
-		public enum type {NORMAL, MAVEN, SALESPERSON, CONNECTOR} ;
 		boolean isInfected; 
 		public type t;
 		
-		
-	public Person(double initialX, double initialY, type t, boolean initialInfected ) {
+		public Person(){
+			x=0;
+			y=0;
+			isInfected=false;
+		}
+		public Person(double initialX, double initialY, type t, boolean initialInfected){
+		this.t = t;
 		x = initialX; 
 		y = initialY;
 		isInfected = initialInfected;
-		this.t = t;
 	}
 	
-	public void setX double newX) {
-		x = newX
+	public void setX(double newX) {
+		x = newX;
 	}
 	
-	public void setX(double newY) {
-		x = newX
+	public void setY(double newY) {
+		y = newY;
 	}
 	
 	public double getX() {
@@ -41,7 +47,7 @@ public class Person {
 		this.isInfected = x;
 	}
 	
-	public void getType() {
+	public type getType() {
 		return t;
 	}
 	
