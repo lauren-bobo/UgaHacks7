@@ -1,27 +1,8 @@
 public class LawOfTheFewModel {
-
-	int N = 100; // Population Size
-//Array indices represent the equation's output at a given instant in time
 	
-	People[] TotalSucceptible = new double[N + 1];
-	People[] TotalInfected = new double[N + 1];
-
-	/*
-	double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
-	double[] IN = new double[N + 1]; // Infected Normal People in Population
-
-	double[] SC = new double[N + 1]; // Succeptible Connectors in Population
-	double[] IC = new double[N + 1]; // Infected Connectors in Population
-
-	double[] SM = new double[N + 1]; // Succeptible Mavens in Population
-	double[] IM = new double[N + 1]; // Infected Mavens in Population
-
-	double[] SP = new double[N + 1]; // Succeptible Salespeople in Population
-	double[] IP = new double[N + 1]; // Infected Salespeople in Population
-	*/
-	
-	/**
-	 * 
+public final double THRESHOLDFORINFECTION = .50; 
+double stickiness = .30; 
+	/* 
 	 * @param a
 	 * @return
 	 */
@@ -33,7 +14,7 @@ public class LawOfTheFewModel {
 			}
 		}
 		return numInfected; 
-	}
+	} //getNumInfected
 	
 	/**
 	 * 
@@ -41,7 +22,8 @@ public class LawOfTheFewModel {
 	public int getNumHealthy() {
 		int pop = Main.getPopulation();
 		return pop - getNumInfected(); 
-	}
+	} //getNumHealthy
+	
 	/**
 	 * 
 	 * @param a
@@ -49,17 +31,50 @@ public class LawOfTheFewModel {
 	 */
 	public void attemptInfect(Person a, Person b) {
 		boolean infected = false; 
-		if (a.isInfected() && !b.isInfected()) {
+		if (a.isInfected() && !b.isInfected() ) {
 			int susceptible = Person.getRandomNumber(0,100);
-			int contaminate = a.getContagiousness() * 100 ;
-			if (susceptible < contaminate) {
+			int contaminate = (a.getContagiousness() * 100) + (stickiness * 100);
+			if (contaminate > susceptible) {
 				infected = true; 
 			}
+			b.setInfection(infected);	
 		}
-		b.setInfection(infected);	
-}
+		
+} //attemptInfect
 	
+	public void spread(Person[] population) {
+		for( int i = 0 ; i< population.length; i++) {
+			for (int j=0 ; j< population.length; j++) {
+				if(population[i].distanceTo(population[j]) <= population[i].getSphereOfInfluence()) {
+					attemptInfect(population[i], population[j]); 
+				}
+			}
+		}
+	} //spread
 	
+} //LawOfTheFew
+
+
+/*
+double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
+double[] IN = new double[N + 1]; // Infected Normal People in Population
+
+double[] SC = new double[N + 1]; // Succeptible Connectors in Population
+double[] IC = new double[N + 1]; // Infected Connectors in Population
+
+double[] SM = new double[N + 1]; // Succeptible Mavens in Population
+double[] IM = new double[N + 1]; // Infected Mavens in Population
+
+double[] SP = new double[N + 1]; // Succeptible Salespeople in Population
+double[] IP = new double[N + 1]; // Infected Salespeople in Population
+
+
+/**
+	int N = 100; // Population Size
+	//Array indices represent the equation's output at a given instant in time
+		
+		People[] TotalSucceptible = new double[N + 1];
+		People[] TotalInfected = new double[N + 1];
 
 	
 
@@ -84,7 +99,7 @@ public class LawOfTheFewModel {
 
 	double dt = 100 / N; // Total Time of Simulation (100 days) / N
 
-	for (int i = 0 ; i < N ; ++i) { 
+	for (int time = 0 ; time < N ; ++i) { 
 	// i represents the number of steps taken. i must be less than N so it doesn't exceed the array bounds.
 	// In this case, i also represents a given unit time because the # steps = # of days the simulation covers.
 	// This is neccesary so # of succeptible and infecteds can be graphed with respect to i days.
@@ -126,13 +141,4 @@ public class LawOfTheFewModel {
 	} // for
 	
 } // LawOfTheFewModel
-	
-public double[] getTotalSucceptible() {
-	return TotalSucceptible;
-	
-} // getTotalSucceptible
-
-public double[] getTotalInfected() {
-	return TotalInfected;
-	
-} // getTotalInfected()
+	*/
