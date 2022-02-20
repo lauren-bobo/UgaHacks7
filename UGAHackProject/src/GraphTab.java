@@ -9,7 +9,7 @@ import javafx.scene.chart.NumberAxis;
 public class GraphTab extends Tab {
 	VBox vbox;
 	public GraphTab() {
-		super("Time vs Infection");
+		super("Graph");
 		vbox = new VBox(30);
 		
 		final NumberAxis xAxis = new NumberAxis(); //i
@@ -20,13 +20,15 @@ public class GraphTab extends Tab {
         final LineChart<Number,Number> lineChart = 
                 new LineChart<Number,Number>(xAxis,yAxis);
                 
-        lineChart.setTitle("Chart");
+        lineChart.setTitle("Time vs Infection Percent");
         vbox.getChildren().addAll(lineChart);
         
 		this.setContent(vbox);
 		
 	} //GraphTab
 	
-	
+	public void updateFrame() {
+		
+	}
 	
 }
