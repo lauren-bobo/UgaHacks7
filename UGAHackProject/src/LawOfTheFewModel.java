@@ -6,6 +6,7 @@ public class LawOfTheFewModel {
 	People[] TotalSucceptible = new double[N + 1];
 	People[] TotalInfected = new double[N + 1];
 
+	/*
 	double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
 	double[] IN = new double[N + 1]; // Infected Normal People in Population
 
@@ -17,7 +18,34 @@ public class LawOfTheFewModel {
 
 	double[] SP = new double[N + 1]; // Succeptible Salespeople in Population
 	double[] IP = new double[N + 1]; // Infected Salespeople in Population
-	//test
+	*/
+	
+	public double calculateNumInfected(Person [] a) {
+		
+	}
+	public void determineIfInfected(Person a) {
+		boolean isInfected; 
+		 switch (a.getType()) {
+		 case MAVERICK: {
+			 
+		 }
+		 case CONNECTOR : {
+			 
+		 }
+		 case SALESPERSON : {
+			 
+		 }
+		 case NORMAL :{
+			 
+		 }
+		 default : {
+			 
+		 }
+			 
+		 }
+		
+	}
+	
 
 // The sum of the totals from each person type should always equal N, the population
 // We'll say that the 3 types of exceptional people should make up 15% of the population (5 people each of 100)
