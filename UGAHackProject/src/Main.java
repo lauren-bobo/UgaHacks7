@@ -20,8 +20,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 
-import javafx.scene.Group;
-import javafx.scene.shape.Circle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+
 import java.io.*;
 import java.util.*;
 public class Main extends Application {
@@ -42,14 +45,16 @@ public class Main extends Application {
 	SimulationTab simulation;
 	GraphTab graphs;
 	
+	private final Duration fpsTarget = Duration.millis(1000.0 / 30); //30 target fps
+	private final Timeline loop = new Timeline();
+	
 	Person[] people;
 	
 	public void start(Stage stage) {
 		stage.setTitle("Tipping Point");
         stage.setScene(scene);
         stage.show();
-	
-	}
+	} //start
 	
 	public void init() {
 		helpMenu = new Menu("Help");
@@ -57,11 +62,11 @@ public class Main extends Application {
 		menuBar.getMenus().addAll(helpMenu);
 		
 		button = new Button("Start simulation");
-		EventHandler<ActionEvent> startGameEvent = event -> {
-			people = new Person[this.getPopulation()];
-			app.getChildren().remove(1);
+		EventHandler<ActionEvent> startSimEvent = event -> {
+			this.startSim();
 		};
-		button.setOnAction(startGameEvent);
+		button.setOnAction(startSimEvent);
+		
 		vertSeparator = new Separator(Orientation.VERTICAL);
 		sliderLabel = new Label("Starting population: ");
 		slider = new Slider(20, 200, 50);
@@ -82,9 +87,27 @@ public class Main extends Application {
 		app = new VBox();
 		app.getChildren().addAll(menuBar, controlButtons, tabs);
 		
-		scene = new Scene(app, 600, 700);
+		scene = new Scene(app, 600, 600);
 
-	}
+	} //init
+	
+	public void startSim() {
+		people = new Person[this.getPopulation()];
+		app.getChildren().remove(1);
+		for (int i = 0; i < people.length; i++) {
+			people[i] = new Person();
+		} //for
+		simulation.addPeopleToSimPane(people);
+		
+		//simulation of one single loop
+		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
+			simulation.updateFrame(people);
+			graphs.updateFrame();
+		});
+		loop.setCycleCount(Timeline.INDEFINITE);
+		loop.getKeyFrames().add(updateFrame);
+		loop.play();
+	} //startSim
 	
 	public int getPopulation() {
 		return (int)Double.parseDouble(sliderValue.getText());
