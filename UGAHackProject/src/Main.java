@@ -32,6 +32,7 @@ public class Main extends Application {
 	VBox controlSliders;
 	HBox startPop;
 	HBox startNorm;
+	HBox startInfect;
 	
 	Button startButton;	
 	Separator vertSeparatorA;
@@ -41,6 +42,9 @@ public class Main extends Application {
 	Label typeLabel;
 	Slider typeSlider;
 	Label typeSliderValue;
+	Label infectLabel;
+	Slider infectSlider;
+	Label infectSliderValue;
 	
 	MenuBar menuBar;
 	TabPane tabs;
@@ -56,12 +60,20 @@ public class Main extends Application {
 	
 	Person[] people;
 	
+	/*
+	 * Takes in Stage.
+	 * @Param Stage
+	 */
 	public void start(Stage stage) {
 		stage.setTitle("Tipping Point");
         stage.setScene(scene);
         stage.show();
 	} //start
 	
+	/*
+	 * Initializes the project. Creates the layout with
+	 * The tabs, buttons, and controls. Contains the main scene.
+	 */
 	public void init() {
 		helpMenu = new Menu("Help");
 		menuBar = new MenuBar();
@@ -72,31 +84,11 @@ public class Main extends Application {
 			this.startSim();
 		};
 		startButton.setOnAction(startSimEvent);
-		
 		vertSeparatorA = new Separator(Orientation.VERTICAL);
-
-		startPop = new HBox();
-		sliderLabel = new Label("Starting population: ");
-		popSlider = new Slider(20, 200, 50);
-		popSlider.setSnapToTicks(true);
-		popSlider.setShowTickMarks(true);
-		popSlider.setMajorTickUnit(10.0);
-		sliderValue = new Label();
-		sliderValue.textProperty().bind(Bindings.format("%.2f", popSlider.valueProperty()));
-		startPop.getChildren().addAll(sliderLabel, popSlider, sliderValue);
-		
-		HBox startNorm = new HBox();
-		typeLabel = new Label("% Starting Normal: ");
-		typeSlider = new Slider(0, 100, 30);
-		typeSlider.setSnapToTicks(true);
-		typeSlider.setShowTickMarks(true);
-		typeSlider.setMajorTickUnit(10.0);
-		typeSliderValue = new Label();
-		typeSliderValue.textProperty().bind(Bindings.format("%.2f", typeSlider.valueProperty()));
-		startNorm.getChildren().addAll(typeLabel, typeSlider, typeSliderValue);
+		makeSliders();
 		
 		controlSliders = new VBox();
-		controlSliders.getChildren().addAll(startPop, startNorm);
+		controlSliders.getChildren().addAll(startPop, startNorm, startInfect);
 		controlButtons = new HBox(10);
 		controlButtons.getChildren().addAll(startButton, vertSeparatorA, controlSliders);
 		
@@ -113,13 +105,54 @@ public class Main extends Application {
 
 	} //init
 	
+	/*
+	 * Creates the three simulation control sliders.
+	 */
+	public void makeSliders() {
+		//population
+		startPop = new HBox();
+		sliderLabel = new Label("Starting population: ");
+		popSlider = new Slider(20, 200, 50);
+		popSlider.setSnapToTicks(true);
+		popSlider.setShowTickMarks(true);
+		popSlider.setMajorTickUnit(10.0);
+		sliderValue = new Label();
+		sliderValue.textProperty().bind(Bindings.format("%.2f", popSlider.valueProperty()));
+		startPop.getChildren().addAll(sliderLabel, popSlider, sliderValue);
+		
+		//how many normal people
+		startNorm = new HBox();
+		typeLabel = new Label("% Starting Normal: ");
+		typeSlider = new Slider(0, 100, 30);
+		typeSlider.setSnapToTicks(true);
+		typeSlider.setShowTickMarks(true);
+		typeSlider.setMajorTickUnit(10.0);
+		typeSliderValue = new Label();
+		typeSliderValue.textProperty().bind(Bindings.format("%.2f", typeSlider.valueProperty()));
+		startNorm.getChildren().addAll(typeLabel, typeSlider, typeSliderValue);
+		
+		//number of infected people starting off
+		startInfect = new HBox();
+		infectLabel = new Label("% Starting Infected: ");
+		infectSlider = new Slider(0, 100, 20);
+		infectSlider.setSnapToTicks(true);
+		infectSlider.setShowTickMarks(true);
+		infectSlider.setMajorTickUnit(10.0);
+		infectSliderValue = new Label();
+		infectSliderValue.textProperty().bind(Bindings.format("%.2f", infectSlider.valueProperty()));
+		startInfect.getChildren().addAll(infectLabel, infectSlider, infectSliderValue);
+	} //makeSliders
+	
+	/*
+	 * Starts the simulation and starts the loop.
+	 * Contains lambda with main simulation loop.
+	 */
 	public void startSim() {
 		initializePeopleArray();
-		
 		//lambda simulation of one single loop
 		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
 			days++;
-			spread(people);
+			spread();
 			simulation.updateFrame(days, people);
 			graphs.updateFrame(days, getNumHealthy(), getNumInfected());
 		});
@@ -130,16 +163,25 @@ public class Main extends Application {
 		loop.play(); //start the loop
 	} //startSim
 	
+	/*
+	 * Get the total population of the simulation.
+	 * @return returns the total population
+	 */
 	public int getPopulation() {
 		return (int)Double.parseDouble(sliderValue.getText());
 	} //getPopulation
 	
+	/*
+	 * Initializes the array of people for the simulation.
+	 * Also gives each Person it's starting variables, type,
+	 * and proximity (based on the persons around it)
+	 */
 	public void initializePeopleArray() {
 		people = new Person[this.getPopulation()];
 		app.getChildren().remove(1);
 		for (int i = 0; i < people.length; i++) {
 			people[i] = new Person(determineType());
-			if (Person.getRandomNumber(0, 100) > 80) {
+			if (Person.getRandomNumber(0, 100) < (int)Double.parseDouble(infectSliderValue.getText())) {
 				people[i].setInfection(true);
 			} //if
 		} //for
@@ -160,6 +202,14 @@ public class Main extends Application {
 		simulation.addPeopleToSimPane(people);
 	} //initializePeopleArray
 	
+	/*
+	 * Determines someone's person type.
+	 * Bases it off of Normal and everyone else. Normal is 
+	 * controlled by a slider, the other three types are then
+	 * given equal chances. This is all for a probability that someone
+	 * becomes that type; it does not guarantee even distribution.
+	 * @return PersonType returns a PersonType to be assigned
+	 */
 	public PersonType determineType() {
 		int numNorm = (int)Double.parseDouble(sliderValue.getText());
 		int compare = Person.getRandomNumber(0,  100);
@@ -176,9 +226,10 @@ public class Main extends Application {
 		return PersonType.valueOf("MAVEN");
 	} //determineType
 	
-	/* */
-	/* */
-	
+	/*
+	 * Returns the number of infected people out of the total
+	 * @return int the number of infected people
+	 */
 	public int getNumInfected() {
 		int numInfected = 0;
 		for (Person person: people) {
@@ -189,11 +240,20 @@ public class Main extends Application {
 		return numInfected; 
 	} //getNumInfected
 	
+	/*
+	 * Returns the number of healthy people out of the total
+	 * @return int the number of healthy people
+	 */
 	public int getNumHealthy() {
 		int pop = getPopulation();
 		return pop - getNumInfected(); 
 	} //getNumHealthy
 	
+	/*
+	 * Attempts to infect someone.
+	 * @param Person the person trying to infect the other
+	 * @param Person the person who is having an infection attempt on them
+	 */
 	public void attemptInfect(Person i, Person j) {
 		double susceptible = Person.getRandomNumber(0,100);
 		double contaminate = (i.getContagiousness() * 100) + (stickiness * 100);
@@ -202,18 +262,20 @@ public class Main extends Application {
 		} //if	
 	} //attemptInfect
 	
-	public void spread(Person[] population) {
-		for( int i = 0 ; i< population.length; i++) {
-			if (population[i].isInfected()) {
-				Person[] proximity = population[i].getProximity();
+	/*
+	 * If a person is infected, it will check them with all of the people
+	 * in their proximity for infection.
+	 */
+	public void spread() {
+		for( int i = 0 ; i< people.length; i++) {
+			if (people[i].isInfected()) {
+				Person[] proximity = people[i].getProximity();
 				for (int j = 0; j < proximity.length; j++) {
 					if (!proximity[j].isInfected()) {
-						attemptInfect(population[i], population[j]);
+						attemptInfect(people[i], people[j]);
 					} //if
 				} //for
 			} //if
 		} //for
 	} //spread
-	
-	
 } //Main

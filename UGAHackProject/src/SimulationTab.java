@@ -9,10 +9,9 @@ import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-
-//import javafx.beans.value.ObservableValue;
-
-
+/*
+ * SimulationTab extends Tab.
+ */
 public class SimulationTab extends Tab {
 	
 	VBox vbox;
@@ -23,6 +22,10 @@ public class SimulationTab extends Tab {
 	Label daysPassedNumber;
 	Label text;
 	
+	/*
+	 * Creates the simulation tab with the simulation box
+	 * and other labels.
+	 */
 	public SimulationTab() {
 		super("Simulation");
 		this.setClosable(false);
@@ -41,6 +44,11 @@ public class SimulationTab extends Tab {
 		this.setContent(vbox);
 	} //SimulationTab
 	
+	/*
+	 * Adds people to the simulation pane based on
+	 * the people array. 
+	 * @param people the array of people
+	 */
 	public void addPeopleToSimPane(Person[] people) {
 		for (int i = 0; i < people.length; i++) {
 			simPane.getChildren().add(people[i]);
@@ -58,65 +66,6 @@ public class SimulationTab extends Tab {
 			} else {
 				p.setFill(Color.BLUE);
 			} //if
-			/*
-			for (Person p2 : people[5].getProximity()) {
-				p2.setFill(Color.GREEN);
-			} //for
-			*/
 		} //for
-	} //updateFrame
-		
-
-	/*
-	public String getHeadLine(double x) {
-		Scanner input = null;
-		
-		int y;
-		
-		if (x >= 0 || x <= 0.05) 
-			y = 1;
-		else if (x >= 0.05 || x <= 0.1)
-			y = 2;
-		else if (x >= 0.1 || x <= 0.15)
-			y = 3;
-		else if (x >= 0.15 || x <= 0.2)
-			y = 4;
-		else if (x >= 0.2 || x <= 0.25)
-			y = 5;
-		else if (x >= 0.25 || x <= 0.3)
-			y = 6;
-		else if (x >= 0.3 || x <= 0.35)
-			y = 7;
-		else if (x >= 0.35 || x <= 0.4)
-			y = 8;
-		else if (x >= 0.4 || x <= 0.45)
-			y = 9;
-		else if (x >= 0.45 || x <= 0.5)
-			y = 10;
-		else
-			return "Number Invalid.";
-		
-		try {
-			File headlineFile = new File("/UGAHackProject/resources/headline" + y + ".txt");
-			input = new Scanner(headlineFile);
-			int z;
-			if (y <= 5) 
-				z = 7;
-			else
-				z = 3;
-			int dest = (int) ((Math.random() * (1 - z)) + 1);
-			String out = "";
-			for (int i = 0; i <= dest; i++) {
-				out = input.nextLine();
-			} //for
-			return out;
-		} catch (FileNotFoundException e) {
-			System.err.println("file not found");
-		} catch (NoSuchElementException e) {
-			System.err.println("no such element");
-		} //try
-		return "fail";
-	} //getHeadLine
-	*/
-	
+	} //updateFrame	
 } //SimulationTab

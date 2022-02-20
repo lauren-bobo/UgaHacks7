@@ -1,16 +1,20 @@
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
-
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-
 import javafx.scene.chart.XYChart;
-import javafx.collections.ObservableList;
 
+/*
+ * GraphTab that extends Tab.
+ */
 public class GraphTab extends Tab {
 	VBox vbox;
 	XYChart.Series infSeries;
 	XYChart.Series heaSeries;
+	/*
+	 * Calls super class, sets up graph to plot
+	 * the number of infected and normal people. 
+	 */
 	public GraphTab() {
 		super("Graph");
 		this.setClosable(false);
@@ -37,7 +41,7 @@ public class GraphTab extends Tab {
 	} //GraphTab
 	
 	/*
-	 * Updates every Frame
+	 * Updates every Frame with the data.
 	 */
 	public void updateFrame(int days, int healthy, int infected) {
 		

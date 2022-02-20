@@ -1,7 +1,5 @@
 
 public class StringReference {
-
-public String getDescription(int n) {
 	String[] s1 = {
 			"CDC announces new health policy against Covid: Hold classes in outside pavillions.",
 			"Honey bee farms are now illegal in the following states: Washington, Wyoming, Wisconson.",
@@ -97,7 +95,7 @@ public String getDescription(int n) {
 			"Trend Alert: Ouiji board trend on Tik Tok peaking around Halloween spirals out of control when police stations recieve a massive increase in calls relating to \"possesion\" and \"poltergeist activity\".",
 			"Grizzly Bears all over the country have been spotted \"walking on two legs and scaring away campers with sticks and clubs to steal their food\". Scientists speculate that these bears have \"lost all fear of humans\".",
 			"UGA Red and Black Exclusive: Representatives of earth's underground reptilian race visit UGA to give talks and presentations about their every day lives underground and in the shadows."
-	} ;
+	};
 
 
 
@@ -108,7 +106,7 @@ public String getDescription(int n) {
 	};
 	
 	
-	public String[][] descriptions = {
+	final String[][] descriptions = {
 			s1,
 			s2,
 			s3,
@@ -119,10 +117,9 @@ public String getDescription(int n) {
 			s8,
 			s9,
 			s10
-			
 	};
-}
+	public String getDescription(int i, int j) {
+		return descriptions[i][j];
+	} //getDescription
+} //StringReference
 
-
-
-}
