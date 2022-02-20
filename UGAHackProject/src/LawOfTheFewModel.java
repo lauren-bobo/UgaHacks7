@@ -1,7 +1,8 @@
 public class LawOfTheFewModel {
+	
 public final double THRESHOLDFORINFECTION = .50; 
 double stickiness = .30; 
-	 * 
+	/* 
 	 * @param a
 	 * @return
 	 */
@@ -51,7 +52,7 @@ double stickiness = .30;
 		}
 	} //spread
 	
-} //LawOfFew
+} //LawOfTheFew
 
 
 /*
