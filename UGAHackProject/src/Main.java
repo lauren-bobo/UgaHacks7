@@ -124,6 +124,8 @@ public class Main extends Application {
 		});
 		loop.setCycleCount(Timeline.INDEFINITE);
 		loop.getKeyFrames().add(updateFrame);
+		simulation.updateFrame(people);
+		graphs.updateFrame(days, getNumHealthy(), getNumInfected());
 		loop.play(); //start the loop
 	} //startSim
 	

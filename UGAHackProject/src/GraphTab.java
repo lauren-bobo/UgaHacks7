@@ -32,7 +32,7 @@ public class GraphTab extends Tab {
         lineChart.getData().addAll(infSeries, heaSeries);
 
         lineChart.setCreateSymbols(false);
-        lineChart.setTitle("Time vs Infection Percent");
+        lineChart.setTitle("Time vs Infection");
         vbox.getChildren().addAll(lineChart);
         
 		this.setContent(vbox);
