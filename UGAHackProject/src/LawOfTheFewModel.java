@@ -20,11 +20,24 @@ public class LawOfTheFewModel {
 	double[] IP = new double[N + 1]; // Infected Salespeople in Population
 	*/
 	
+	/**
+	 * 
+	 * @param a
+	 * @return
+	 */
 	public double calculateNumInfected(Person [] a) {
-		
+		double numInfected = 0;
+		for (Person peep: a) {
+			if(peep.isInfected()) {
+				numInfected++;
+			}
+		}
+		return numInfected; 
 	}
-	public void determineIfInfected(Person a) {
-		boolean isInfected; 
+	
+	public void attemptInfect(Person a) {
+		if (!a.isInfected()){
+			
 		 switch (a.getType()) {
 		 case MAVEN: {
 			 
@@ -43,7 +56,7 @@ public class LawOfTheFewModel {
 		 }
 			 
 		 }
-		
+		}
 	}
 	
 

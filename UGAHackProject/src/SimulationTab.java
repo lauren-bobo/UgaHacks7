@@ -18,6 +18,7 @@ public class SimulationTab extends Tab {
 	
 	public SimulationTab() {
 		super("Simulation");
+		this.setClosable(false);
 		vbox = new VBox(30);
 		simPane = new Pane();
 		
