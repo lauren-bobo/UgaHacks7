@@ -94,6 +94,20 @@ public class Main extends Application {
 		for (int i = 0; i < people.length; i++) {
 			people[i] = new Person();
 		} //for
+		for (int i = 0; i < people.length; i++) {
+			int proxCount = 0;
+			ArrayList<Person> temp = new ArrayList<>();
+			for (int j = 0; i < people.length; j++) {
+				if (i != j && people[i].distanceTo(people[j]) <= 
+						people[i].getSphereOfInfluence()) {
+					temp.add(people[j]);
+				} //if
+			} //for
+			Person[] proximity = new Person[temp.size()];
+			for (int k = 0; k <proximity.length; k++) {
+				people[i].setProximity(proximity);
+			} //for
+		} //for
 		simulation.addPeopleToSimPane(people);
 		
 		//lambda simulation of one single loop
@@ -124,4 +138,5 @@ public class Main extends Application {
 			System.err.println(e.getMessage());
 		}
 	}
+	
 } //Main
