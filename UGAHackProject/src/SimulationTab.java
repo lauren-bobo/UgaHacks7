@@ -4,8 +4,9 @@ import javafx.scene.layout.VBox;
 
 import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.control.Label;
 import javafx.geometry.Insets;
+
 
 //import javafx.beans.value.ObservableValue;
 
@@ -15,15 +16,17 @@ public class SimulationTab extends Tab {
 	VBox vbox;
 	Insets insets;
 	Pane simPane;
+	Label text;
 	
 	public SimulationTab() {
 		super("Simulation");
 		this.setClosable(false);
 		vbox = new VBox(30);
 		simPane = new Pane();
+		text = new Label();
 		
 		vbox.setPadding(new Insets(10, 10, 10, 10));
-		vbox.getChildren().addAll(simPane);
+		vbox.getChildren().addAll(simPane, text);
 		
 		this.setContent(vbox);
 	} //SimulationTab
@@ -39,7 +42,6 @@ public class SimulationTab extends Tab {
 	 */
 	public void updateFrame(Person[] people) {
 		for (Person p : people) {
-			//p.setFill(Color.rgb(r(0, 255), r(0, 255), r(0, 255)));
 			if (p.isInfected() ) {
 				p.setFill(Color.RED);
 			} else {
@@ -51,13 +53,10 @@ public class SimulationTab extends Tab {
 			} //for
 			*/
 		} //for
-
+		text.setText(getHeadLine(0.4));
 	} //updateFrame
 		
-	//random number - not necessary later. can delete
-	public static int r(int min, int max) {
-	    return (int) ((Math.random() * (max - min)) + min);
-	} //getRandomNumber
+
 	
 	public String getHeadLine(double x) {
 		Scanner input = null;
@@ -88,7 +87,7 @@ public class SimulationTab extends Tab {
 			return "Number Invalid.";
 		
 		try {
-			File headlineFile = new File(UGAHackProject/resources/"headline" + y + ".txt");
+			File headlineFile = new File("/UGAHackProject/resources/headline" + y + ".txt");
 			input = new Scanner(headlineFile);
 			int z;
 			if (y <= 5) 
@@ -99,14 +98,14 @@ public class SimulationTab extends Tab {
 			String out = "";
 			for (int i = 0; i <= dest; i++) {
 				out = input.nextLine();
-			}
+			} //for
 			return out;
 		} catch (FileNotFoundException e) {
-			return "File Not Found";
+			System.err.println("file not found");
 		} catch (NoSuchElementException e) {
-			return "Element Not Found";
-		}
-		
+			System.err.println("no such element");
+		} //try
+		return "fail";
 	} //getHeadLine
 	
 } //SimulationTab

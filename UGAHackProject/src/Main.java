@@ -91,6 +91,27 @@ public class Main extends Application {
 	} //init
 	
 	public void startSim() {
+		initializePeopleArray();
+		
+		//lambda simulation of one single loop
+		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
+			days++;
+			spread(people);
+			simulation.updateFrame(people);
+			graphs.updateFrame(days, getNumHealthy(), getNumInfected());
+		});
+		loop.setCycleCount(Timeline.INDEFINITE);
+		loop.getKeyFrames().add(updateFrame);
+		simulation.updateFrame(people);
+		graphs.updateFrame(days, getNumHealthy(), getNumInfected());
+		loop.play(); //start the loop
+	} //startSim
+	
+	public int getPopulation() {
+		return (int)Double.parseDouble(sliderValue.getText());
+	} //getPopulation
+	
+	public void initializePeopleArray() {
 		people = new Person[this.getPopulation()];
 		app.getChildren().remove(1);
 		for (int i = 0; i < people.length; i++) {
@@ -114,24 +135,7 @@ public class Main extends Application {
 			people[i].setProximity(proximity);
 		} //for
 		simulation.addPeopleToSimPane(people);
-		
-		//lambda simulation of one single loop
-		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
-			days++;
-			spread(people);
-			simulation.updateFrame(people);
-			graphs.updateFrame(days, getNumHealthy(), getNumInfected());
-		});
-		loop.setCycleCount(Timeline.INDEFINITE);
-		loop.getKeyFrames().add(updateFrame);
-		simulation.updateFrame(people);
-		graphs.updateFrame(days, getNumHealthy(), getNumInfected());
-		loop.play(); //start the loop
-	} //startSim
-	
-	public int getPopulation() {
-		return (int)Double.parseDouble(sliderValue.getText());
-	} //getPopulation
+	} //initializePeopleArray
 	
 	/* */
 	/* */

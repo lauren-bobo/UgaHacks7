@@ -27,8 +27,6 @@ public class GraphTab extends Tab {
         heaSeries = new XYChart.Series(); 
         heaSeries.setName("Total people healthy");
         
-
-        
         lineChart.getData().addAll(infSeries, heaSeries);
 
         lineChart.setCreateSymbols(false);
