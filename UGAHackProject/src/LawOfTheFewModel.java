@@ -31,28 +31,32 @@ double stickiness = .30;
 	 */
 	public void attemptInfect(Person a, Person b) {
 		boolean infected = false; 
-		if (a.isInfected() && !b.isInfected() ) {
+		
 			int susceptible = Person.getRandomNumber(0,100);
 			int contaminate = (a.getContagiousness() * 100) + (stickiness * 100);
 			if (contaminate > susceptible) {
 				infected = true; 
 			}
 			b.setInfection(infected);	
-		}
+		
 		
 } //attemptInfect
-	
-	public void spread(Person[] population) {
-		for( int i = 0 ; i< population.length; i++) {
-			for (int j=0 ; j< population.length; j++) {
-				if(population[i].distanceTo(population[j]) <= population[i].getSphereOfInfluence()) {
-					attemptInfect(population[i], population[j]); 
+		
+		public void spread(Person[] population) {
+			for( int i = 0 ; i< population.length; i++) {
+				if (population[i].isInfected()) {
+				for (int j=0 ; j< population.length; j++) {
+					if(!population[j].isInfected) {
+					if(population[i].distanceTo(population[j]) <= population[i].getSphereOfInfluence()) {
+						attemptInfect(population[i], population[j]);
+					}
 				}
+					} //for j
+				} //if
 			}
-		}
-	} //spread
-	
-} //LawOfTheFew
+		} //spread
+		
+	} //LawOfTheFew
 
 
 /*
