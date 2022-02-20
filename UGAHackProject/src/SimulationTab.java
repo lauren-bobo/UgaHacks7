@@ -61,10 +61,24 @@ public class SimulationTab extends Tab {
 	public void updateFrame(int days, Person[] people) {
 		daysPassedNumber.setText("" + days);
 		for (Person p : people) {
-			if (p.isInfected() ) {
-				p.setFill(Color.RED);
+			Color c;
+			switch (p.getPersonType()) {
+				case SALESPERSON:
+					c = Color.rgb(246, 239, 36);
+					break;
+				case MAVEN:
+					c = Color.rgb(212, 0, 64);
+					break;
+				case CONNECTOR:
+					c = Color.rgb(242, 100, 83);
+					break;
+				default:
+					c = Color.rgb(143, 143, 158);
+			}
+			if (p.isInfected()) {
+				p.setFill(c.darker().darker());
 			} else {
-				p.setFill(Color.BLUE);
+				p.setFill(c);
 			} //if
 		} //for
 	} //updateFrame	

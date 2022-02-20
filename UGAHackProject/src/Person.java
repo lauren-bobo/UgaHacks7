@@ -136,6 +136,14 @@ public class Person extends Circle {
 	public double getContagiousness() {
 		return contagiousness;
 	} //getContagiousness
+	
+	/*
+	 * Getter method for the person type.
+	 * @return returns the Person type the person is.
+	 */
+	public PersonType getPersonType() {
+		return personType;
+	} //getPersonType
 
 	/*
 	 * Calculates the distance from one person to another.
