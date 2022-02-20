@@ -9,20 +9,30 @@ import javafx.collections.ObservableList;
 
 public class GraphTab extends Tab {
 	VBox vbox;
+	XYChart.Series infSeries;
+	XYChart.Series heaSeries;
 	public GraphTab() {
 		super("Graph");
 		this.setClosable(false);
 		vbox = new VBox(30);
 		
-		final NumberAxis xAxis = new NumberAxis(); //i
-        final NumberAxis yAxis = new NumberAxis(); //total susceptable
+		final NumberAxis xAxis = new NumberAxis(0, 100, 10); 
+        final NumberAxis yAxis = new NumberAxis(0, 200, 20); 
         xAxis.setLabel("Time");
         yAxis.setLabel("Infection %");
+        LineChart lineChart = new LineChart(xAxis, yAxis);
+        
+        infSeries = new XYChart.Series(); 
+        infSeries.setName("Total people infected");
+        heaSeries = new XYChart.Series(); 
+        heaSeries.setName("Total people healthy");
+        
 
-        final LineChart<Number,Number> lineChart = 
-                new LineChart<Number,Number>(xAxis,yAxis);
-                
-        lineChart.setTitle("Time vs Infection Percent");
+        
+        lineChart.getData().addAll(infSeries, heaSeries);
+
+        lineChart.setCreateSymbols(false);
+        lineChart.setTitle("Time vs Infection");
         vbox.getChildren().addAll(lineChart);
         
 		this.setContent(vbox);
@@ -31,8 +41,11 @@ public class GraphTab extends Tab {
 	/*
 	 * Updates every Frame
 	 */
-	public void updateFrame() {
+	public void updateFrame(int days, int healthy, int infected) {
 		
+		infSeries.getData().add(new XYChart.Data(days, infected));
+		heaSeries.getData().add(new XYChart.Data(days, healthy));
+
 	} //updateFrame
 	
 } //GraphTab

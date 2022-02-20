@@ -43,19 +43,19 @@ public class Person extends Circle {
 	public void typeToValue() {
 		switch(personType) {
 		case MAVEN:
-			contagiousness = 0.25;
+			contagiousness = 0.025;
 			sphereOfInfluence = 70;
 			break;
 		case SALESPERSON:
-			contagiousness = 0.15;
+			contagiousness = 0.015;
 			sphereOfInfluence = 100;
 			break;
 		case CONNECTOR:
-			contagiousness = 0.10;
-			sphereOfInfluence = 300;
+			contagiousness = 0.010;
+			sphereOfInfluence = 150;
 			break;
 		default:
-			contagiousness = 0.05;
+			contagiousness = 0.005;
 			sphereOfInfluence = 60;
 			break;
 		} //switch
