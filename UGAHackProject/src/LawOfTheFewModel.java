@@ -30,26 +30,24 @@ double stickiness = .30;
 	 * @param b
 	 */
 	public void attemptInfect(Person i, Person j) {
-			int susceptible = Person.getRandomNumber(0,100);
-			int contaminate = (i.getContagiousness() * 100) + (stickiness * 100);
+			double susceptible = Person.getRandomNumber(0,100);
+			double contaminate = (i.getContagiousness() * 100) + (stickiness * 100);
 			if (contaminate > susceptible) {
 				j.setInfection(true);
-			}
-		
-} //attemptInfect
+			} //if	
+	} //attemptInfect
 		
 		public void spread(Person[] population) {
 			for( int i = 0 ; i< population.length; i++) {
 				if (population[i].isInfected()) {
-				for (int j=0 ; j< population.length; j++) {
-					if(!population[j].isInfected) {
-					if(population[i].distanceTo(population[j]) <= population[i].getSphereOfInfluence()) {
-						attemptInfect(population[i], population[j]);
-					}
-				}
-					} //for j
+					Person[] proximity = population[i].getProximity();
+					for (int j = 0; j < proximity.length; j++) {
+						if (!proximity[j].isInfected()) {
+							attemptInfect(population[i], population[j]);
+						} //if
+					} //for
 				} //if
-			}
+			} //for
 		} //spread
 		
 	} //LawOfTheFew

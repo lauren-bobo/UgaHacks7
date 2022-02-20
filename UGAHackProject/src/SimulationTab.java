@@ -40,7 +40,11 @@ public class SimulationTab extends Tab {
 	public void updateFrame(Person[] people) {
 		for (Person p : people) {
 			//p.setFill(Color.rgb(r(0, 255), r(0, 255), r(0, 255)));
-			p.setFill(Color.RED);
+			if (p.isInfected() ) {
+				p.setFill(Color.RED);
+			} else {
+				p.setFill(Color.BLUE);
+			} //if
 			/*
 			for (Person p2 : people[5].getProximity()) {
 				p2.setFill(Color.GREEN);

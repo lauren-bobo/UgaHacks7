@@ -21,7 +21,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-import java.io.*;
 import java.util.*;
 public class Main extends Application {
 	
@@ -41,7 +40,9 @@ public class Main extends Application {
 	SimulationTab simulation;
 	GraphTab graphs;
 	
-	private static final double FPS = 1; //this is the fps the sim will run at
+	double stickiness;
+	
+	private static final double FPS = 10; //this is the fps the sim will run at
 	private final Duration fpsTarget = Duration.millis(1000.0 / FPS); 
 	private final Timeline loop = new Timeline();
 	
@@ -93,6 +94,9 @@ public class Main extends Application {
 		app.getChildren().remove(1);
 		for (int i = 0; i < people.length; i++) {
 			people[i] = new Person(PersonType.valueOf("CONNECTOR"));
+			if (Person.getRandomNumber(0, 100) > 80) {
+				people[i].setInfection(true);
+			} //if
 		} //for
 		for (int i = 0; i < people.length; i++) {
 			ArrayList<Person> temp = new ArrayList<>();
@@ -112,6 +116,7 @@ public class Main extends Application {
 		
 		//lambda simulation of one single loop
 		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
+			spread(people);
 			simulation.updateFrame(people);
 			graphs.updateFrame();
 		});
@@ -124,19 +129,44 @@ public class Main extends Application {
 		return (int)Double.parseDouble(sliderValue.getText());
 	} //getPopulation
 	
-	//print welcome to console - may not be needed
-	private void printWelcome() {
-		File welcomeFile = new File("resources/welcome.txt");
-		Scanner file = null;
-		
-		try {
-			file = new Scanner(welcomeFile);
-			while (file.hasNextLine()) {
-				System.out.println(file.nextLine());
-			}
-		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
-		}
-	}
+	/* */
+	/* */
+	
+	public int getNumInfected(Person[] people) {
+		int numInfected = 0;
+		for (Person person: people) {
+			if(person.isInfected()) {
+				numInfected++;
+			} //if
+		} //for
+		return numInfected; 
+	} //getNumInfected
+	
+	public int getNumHealthy() {
+		int pop = getPopulation();
+		return pop - getNumInfected(people); 
+	} //getNumHealthy
+	
+	public void attemptInfect(Person i, Person j) {
+		double susceptible = Person.getRandomNumber(0,100);
+		double contaminate = (i.getContagiousness() * 100) + (stickiness * 100);
+		if (contaminate > susceptible) {
+			j.setInfection(true);
+		} //if	
+	} //attemptInfect
+	
+	public void spread(Person[] population) {
+		for( int i = 0 ; i< population.length; i++) {
+			if (population[i].isInfected()) {
+				Person[] proximity = population[i].getProximity();
+				for (int j = 0; j < proximity.length; j++) {
+					if (!proximity[j].isInfected()) {
+						attemptInfect(population[i], population[j]);
+					} //if
+				} //for
+			} //if
+		} //for
+	} //spread
+	
 	
 } //Main

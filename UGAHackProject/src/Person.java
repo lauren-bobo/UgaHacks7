@@ -43,30 +43,30 @@ public class Person extends Circle {
 	public void typeToValue() {
 		switch(personType) {
 		case MAVEN:
-			contagiousness = 0.50;
-			sphereOfInfluence = 50;
-			break;
-		case SALESPERSON:
-			contagiousness = 0.30;
+			contagiousness = 0.25;
 			sphereOfInfluence = 70;
 			break;
-		case CONNECTOR:
-			contagiousness = 0.20;
+		case SALESPERSON:
+			contagiousness = 0.15;
 			sphereOfInfluence = 100;
 			break;
-		default:
+		case CONNECTOR:
 			contagiousness = 0.10;
-			sphereOfInfluence = 30;
+			sphereOfInfluence = 300;
+			break;
+		default:
+			contagiousness = 0.05;
+			sphereOfInfluence = 60;
 			break;
 		} //switch
 	} //typeToValue
 	
 	public boolean isInfected() {
-		return this.isInfected;
+		return isInfected;
 	} //isInfected
 	
-	public void setInfection(boolean x) {
-		this.isInfected = x;
+	public void setInfection(boolean isInfected) {
+		this.isInfected = isInfected;
 	} //setInfection
 	
 	public double getSphereOfInfluence() {
