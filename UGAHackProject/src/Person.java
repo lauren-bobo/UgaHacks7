@@ -16,7 +16,7 @@ enum PersonType {
  */
 public class Person extends Circle {
 	
-	private static final int RADIUS = 3;
+	private static final int RADIUS = 8;
 
 	PersonType personType;
 	double sphereOfInfluence;

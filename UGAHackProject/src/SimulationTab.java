@@ -100,7 +100,7 @@ public class SimulationTab extends Tab {
 					c = Color.rgb(143, 143, 158);
 			} //switch
 			if (p.isInfected()) {
-				p.setFill(c.darker().darker());
+				p.setFill(c.darker());
 			} else {
 				p.setFill(c);
 			} //if
