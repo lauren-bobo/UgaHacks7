@@ -2,17 +2,23 @@
  * Main class for this project 
  */
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.Label;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 
 import javafx.scene.Group;
 import javafx.scene.shape.Circle;
@@ -23,7 +29,14 @@ public class Main extends Application {
 	Scene scene;
 	VBox app;
 	Menu helpMenu;
-	Button button;
+	
+	HBox controlButtons;
+	Button button;	
+	Separator vertSeparator;
+	Label sliderLabel;
+	Slider slider;
+	Label sliderValue;
+	
 	MenuBar menuBar;
 	TabPane tabs;
 	SimulationTab simulation;
@@ -32,7 +45,6 @@ public class Main extends Application {
 	Person[] people;
 	
 	public void start(Stage stage) {
-		//printWelcome();
 		stage.setTitle("Tipping Point");
         stage.setScene(scene);
         stage.show();
@@ -46,9 +58,20 @@ public class Main extends Application {
 		
 		button = new Button("Start simulation");
 		EventHandler<ActionEvent> startGameEvent = event -> {
-			System.out.println(simulation.getPopulation());
+			people = new Person[this.getPopulation()];
+			app.getChildren().remove(1);
 		};
 		button.setOnAction(startGameEvent);
+		vertSeparator = new Separator(Orientation.VERTICAL);
+		sliderLabel = new Label("Starting population: ");
+		slider = new Slider(20, 200, 50);
+		slider.setSnapToTicks(true);
+		slider.setShowTickMarks(true);
+		slider.setMajorTickUnit(10.0);
+		sliderValue = new Label();
+		sliderValue.textProperty().bind(Bindings.format("%.2f", slider.valueProperty()));
+		controlButtons = new HBox(10);
+		controlButtons.getChildren().addAll(button, vertSeparator, sliderLabel, slider, sliderValue);
 		
 		tabs = new TabPane();
 		simulation = new SimulationTab();
@@ -57,11 +80,15 @@ public class Main extends Application {
 		
 		//app vbox
 		app = new VBox();
-		app.getChildren().addAll(menuBar, button, tabs);
+		app.getChildren().addAll(menuBar, controlButtons, tabs);
 		
 		scene = new Scene(app, 600, 700);
 
 	}
+	
+	public int getPopulation() {
+		return (int)Double.parseDouble(sliderValue.getText());
+	} //getPopulation
 	
 	private void printWelcome() {
 		File welcomeFile = new File("resources/welcome.txt");
