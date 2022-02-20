@@ -41,8 +41,9 @@ public class Main extends Application {
 	GraphTab graphs;
 	
 	double stickiness;
+	int days;
 	
-	private static final double FPS = 10; //this is the fps the sim will run at
+	private static final double FPS = 1; //this is the fps the sim will run at
 	private final Duration fpsTarget = Duration.millis(1000.0 / FPS); 
 	private final Timeline loop = new Timeline();
 	
@@ -116,9 +117,10 @@ public class Main extends Application {
 		
 		//lambda simulation of one single loop
 		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
+			days++;
 			spread(people);
 			simulation.updateFrame(people);
-			graphs.updateFrame();
+			graphs.updateFrame(days, getNumHealthy(), getNumInfected());
 		});
 		loop.setCycleCount(Timeline.INDEFINITE);
 		loop.getKeyFrames().add(updateFrame);
@@ -132,7 +134,7 @@ public class Main extends Application {
 	/* */
 	/* */
 	
-	public int getNumInfected(Person[] people) {
+	public int getNumInfected() {
 		int numInfected = 0;
 		for (Person person: people) {
 			if(person.isInfected()) {
@@ -144,7 +146,7 @@ public class Main extends Application {
 	
 	public int getNumHealthy() {
 		int pop = getPopulation();
-		return pop - getNumInfected(people); 
+		return pop - getNumInfected(); 
 	} //getNumHealthy
 	
 	public void attemptInfect(Person i, Person j) {
