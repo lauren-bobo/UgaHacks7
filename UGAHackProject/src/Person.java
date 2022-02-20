@@ -80,6 +80,10 @@ public class Person extends Circle {
 	public Person[] getProximity() {
 		return proximity;
 	} //getProximity
+	
+	public double getContagiousness() {
+		return contagiousness;
+	} //getContagiousness
 	/*
 	public PersonType getPersonType() {
 		return personType;
