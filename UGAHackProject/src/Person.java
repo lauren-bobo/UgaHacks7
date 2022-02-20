@@ -41,6 +41,10 @@ public class Person {
 		this.isInfected = x;
 	}
 	
+	public void getType() {
+		return this.t;
+	}
+	
 	
 	
 	
