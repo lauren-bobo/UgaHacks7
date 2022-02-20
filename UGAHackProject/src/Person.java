@@ -42,7 +42,7 @@ public class Person {
 	}
 	
 	public void getType() {
-		return this.t;
+		return t;
 	}
 	
 	
