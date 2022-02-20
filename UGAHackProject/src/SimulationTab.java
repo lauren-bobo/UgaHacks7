@@ -3,9 +3,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 import javafx.scene.paint.Color;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 
 //import javafx.beans.value.ObservableValue;
@@ -16,6 +18,9 @@ public class SimulationTab extends Tab {
 	VBox vbox;
 	Insets insets;
 	Pane simPane;
+	HBox dayCounter;
+	Label daysPassed;
+	Label daysPassedNumber;
 	Label text;
 	
 	public SimulationTab() {
@@ -23,10 +28,15 @@ public class SimulationTab extends Tab {
 		this.setClosable(false);
 		vbox = new VBox(30);
 		simPane = new Pane();
+		daysPassed = new Label("Days passed: ");
+		daysPassedNumber = new Label("0");
+		dayCounter = new HBox();
+		dayCounter.setAlignment(Pos.TOP_CENTER);
+		dayCounter.getChildren().setAll(daysPassed, daysPassedNumber);
 		text = new Label();
 		
 		vbox.setPadding(new Insets(10, 10, 10, 10));
-		vbox.getChildren().addAll(simPane, text);
+		vbox.getChildren().addAll(dayCounter, simPane, text);
 		
 		this.setContent(vbox);
 	} //SimulationTab
@@ -40,7 +50,8 @@ public class SimulationTab extends Tab {
 	/*
 	 * Updates every frame
 	 */
-	public void updateFrame(Person[] people) {
+	public void updateFrame(int days, Person[] people) {
+		daysPassedNumber.setText("" + days);
 		for (Person p : people) {
 			if (p.isInfected() ) {
 				p.setFill(Color.RED);
@@ -53,11 +64,10 @@ public class SimulationTab extends Tab {
 			} //for
 			*/
 		} //for
-		text.setText(getHeadLine(0.4));
 	} //updateFrame
 		
 
-	
+	/*
 	public String getHeadLine(double x) {
 		Scanner input = null;
 		
@@ -107,5 +117,6 @@ public class SimulationTab extends Tab {
 		} //try
 		return "fail";
 	} //getHeadLine
+	*/
 	
 } //SimulationTab

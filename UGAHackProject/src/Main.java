@@ -29,11 +29,18 @@ public class Main extends Application {
 	Menu helpMenu;
 	
 	HBox controlButtons;
-	Button button;	
-	Separator vertSeparator;
+	VBox controlSliders;
+	HBox startPop;
+	HBox startNorm;
+	
+	Button startButton;	
+	Separator vertSeparatorA;
 	Label sliderLabel;
-	Slider slider;
+	Slider popSlider;
 	Label sliderValue;
+	Label typeLabel;
+	Slider typeSlider;
+	Label typeSliderValue;
 	
 	MenuBar menuBar;
 	TabPane tabs;
@@ -60,22 +67,38 @@ public class Main extends Application {
 		menuBar = new MenuBar();
 		menuBar.getMenus().addAll(helpMenu);
 		
-		button = new Button("Start simulation");
+		startButton = new Button("Start simulation");
 		EventHandler<ActionEvent> startSimEvent = event -> {
 			this.startSim();
 		};
-		button.setOnAction(startSimEvent);
+		startButton.setOnAction(startSimEvent);
 		
-		vertSeparator = new Separator(Orientation.VERTICAL);
+		vertSeparatorA = new Separator(Orientation.VERTICAL);
+
+		startPop = new HBox();
 		sliderLabel = new Label("Starting population: ");
-		slider = new Slider(20, 200, 50);
-		slider.setSnapToTicks(true);
-		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(10.0);
+		popSlider = new Slider(20, 200, 50);
+		popSlider.setSnapToTicks(true);
+		popSlider.setShowTickMarks(true);
+		popSlider.setMajorTickUnit(10.0);
 		sliderValue = new Label();
-		sliderValue.textProperty().bind(Bindings.format("%.2f", slider.valueProperty()));
+		sliderValue.textProperty().bind(Bindings.format("%.2f", popSlider.valueProperty()));
+		startPop.getChildren().addAll(sliderLabel, popSlider, sliderValue);
+		
+		HBox startNorm = new HBox();
+		typeLabel = new Label("% Starting Normal: ");
+		typeSlider = new Slider(0, 100, 30);
+		typeSlider.setSnapToTicks(true);
+		typeSlider.setShowTickMarks(true);
+		typeSlider.setMajorTickUnit(10.0);
+		typeSliderValue = new Label();
+		typeSliderValue.textProperty().bind(Bindings.format("%.2f", typeSlider.valueProperty()));
+		startNorm.getChildren().addAll(typeLabel, typeSlider, typeSliderValue);
+		
+		controlSliders = new VBox();
+		controlSliders.getChildren().addAll(startPop, startNorm);
 		controlButtons = new HBox(10);
-		controlButtons.getChildren().addAll(button, vertSeparator, sliderLabel, slider, sliderValue);
+		controlButtons.getChildren().addAll(startButton, vertSeparatorA, controlSliders);
 		
 		tabs = new TabPane();
 		simulation = new SimulationTab();
@@ -97,12 +120,12 @@ public class Main extends Application {
 		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
 			days++;
 			spread(people);
-			simulation.updateFrame(people);
+			simulation.updateFrame(days, people);
 			graphs.updateFrame(days, getNumHealthy(), getNumInfected());
 		});
 		loop.setCycleCount(Timeline.INDEFINITE);
 		loop.getKeyFrames().add(updateFrame);
-		simulation.updateFrame(people);
+		simulation.updateFrame(days, people);
 		graphs.updateFrame(days, getNumHealthy(), getNumInfected());
 		loop.play(); //start the loop
 	} //startSim
@@ -115,7 +138,7 @@ public class Main extends Application {
 		people = new Person[this.getPopulation()];
 		app.getChildren().remove(1);
 		for (int i = 0; i < people.length; i++) {
-			people[i] = new Person(PersonType.valueOf("CONNECTOR"));
+			people[i] = new Person(determineType());
 			if (Person.getRandomNumber(0, 100) > 80) {
 				people[i].setInfection(true);
 			} //if
@@ -136,6 +159,22 @@ public class Main extends Application {
 		} //for
 		simulation.addPeopleToSimPane(people);
 	} //initializePeopleArray
+	
+	public PersonType determineType() {
+		int numNorm = (int)Double.parseDouble(sliderValue.getText());
+		int compare = Person.getRandomNumber(0,  100);
+		if (compare < numNorm) {
+			return PersonType.valueOf("NORMAL");
+		} //if
+		int remainingPercent = (int)((100 - numNorm)/3);
+		if (compare < numNorm + remainingPercent) {
+			return PersonType.valueOf("CONNECTOR");
+		} //if	
+		if (compare < numNorm + (remainingPercent * 2)) {
+			return PersonType.valueOf("SALESPERSON");
+		} //if
+		return PersonType.valueOf("MAVEN");
+	} //determineType
 	
 	/* */
 	/* */
