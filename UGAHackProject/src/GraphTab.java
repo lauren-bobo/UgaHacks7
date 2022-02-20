@@ -1,10 +1,11 @@
-
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-//import javafx.scene.chart.XYChart;
+
+import javafx.scene.chart.XYChart;
+import javafx.collections.ObservableList;
 
 public class GraphTab extends Tab {
 	VBox vbox;
@@ -24,11 +25,13 @@ public class GraphTab extends Tab {
         vbox.getChildren().addAll(lineChart);
         
 		this.setContent(vbox);
-		
 	} //GraphTab
 	
+	/*
+	 * Updates every Frame
+	 */
 	public void updateFrame() {
 		
-	}
+	} //updateFrame
 	
-}
+} //GraphTab

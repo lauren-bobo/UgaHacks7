@@ -5,16 +5,20 @@ enum type {
 			}
 public class Person extends Circle{
 
+	private static final int RADIUS = 3;
+
 	boolean isInfected; 
 	public type t;
 	
 	public Person(){
-		super(getRandomNumber(0, 500), getRandomNumber(0, 500), 3);
+		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
+			  getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
 		isInfected=false;
 	} //Person
 		
 	public Person(type t, boolean initialInfected){
-		super(getRandomNumber(0, 500), getRandomNumber(0, 500), 3);
+		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
+		      getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
 		this.t = t;
 		isInfected = initialInfected;
 	} //Person
