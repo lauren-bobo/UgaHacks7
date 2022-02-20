@@ -1,6 +1,3 @@
-/**
- * Main class for this project 
- */
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -24,7 +21,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-
 import java.io.*;
 import java.util.*;
 public class Main extends Application {
@@ -45,7 +41,8 @@ public class Main extends Application {
 	SimulationTab simulation;
 	GraphTab graphs;
 	
-	private final Duration fpsTarget = Duration.millis(1000.0 / 30); //30 target fps
+	private static final double FPS = 1; //this is the fps the sim will run at
+	private final Duration fpsTarget = Duration.millis(1000.0 / FPS); 
 	private final Timeline loop = new Timeline();
 	
 	Person[] people;
@@ -99,20 +96,21 @@ public class Main extends Application {
 		} //for
 		simulation.addPeopleToSimPane(people);
 		
-		//simulation of one single loop
+		//lambda simulation of one single loop
 		KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
 			simulation.updateFrame(people);
 			graphs.updateFrame();
 		});
 		loop.setCycleCount(Timeline.INDEFINITE);
 		loop.getKeyFrames().add(updateFrame);
-		loop.play();
+		loop.play(); //start the loop
 	} //startSim
 	
 	public int getPopulation() {
 		return (int)Double.parseDouble(sliderValue.getText());
 	} //getPopulation
 	
+	//print welcome to console - may not be needed
 	private void printWelcome() {
 		File welcomeFile = new File("resources/welcome.txt");
 		Scanner file = null;
@@ -126,4 +124,4 @@ public class Main extends Application {
 			System.err.println(e.getMessage());
 		}
 	}
-}
+} //Main
