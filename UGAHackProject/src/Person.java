@@ -29,8 +29,8 @@ public class Person extends Circle {
 	 * randomly and defaults person to Normal.
 	 */
 	public Person() {
-		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
-			  getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
+		super(getRandomNumber(RADIUS + 2, 400 - RADIUS - 2), 
+			  getRandomNumber(RADIUS + 2, 400 - RADIUS - 2), RADIUS);
 		isInfected = false;
 		this.personType = PersonType.valueOf("NORMAL");
 		typeToValue();
@@ -42,8 +42,8 @@ public class Person extends Circle {
 	 * @param PersonType the type of the person
 	 */
 	public Person(PersonType personType) {
-		super(getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), 
-		      getRandomNumber(RADIUS + 2, 500 - RADIUS - 2), RADIUS);
+		super(getRandomNumber(RADIUS + 2, 400 - RADIUS - 2), 
+		      getRandomNumber(RADIUS + 2, 400 - RADIUS - 2), RADIUS);
 		isInfected = false;
 		this.personType = personType;
 		typeToValue();
