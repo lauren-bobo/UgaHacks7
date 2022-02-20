@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Separator;
 import javafx.geometry.Orientation;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
@@ -24,8 +23,8 @@ public class SimulationTab extends Tab {
 	
 	VBox vbox;
 	HBox controlButtons;
-	Button button;
 	Separator vertSeparator;
+	Label sliderLabel;
 	Slider slider;
 	Label sliderValue;
 	Rectangle simulation;
@@ -36,12 +35,8 @@ public class SimulationTab extends Tab {
 		vbox = new VBox(30);
 		controlButtons = new HBox(10);
 		
-		button = new Button("Start simulation");
-		EventHandler<ActionEvent> startGameEvent = event -> {
-        	//button event
-		};
-		button.setOnAction(startGameEvent);
-	
+		
+		sliderLabel = new Label("Starting population: ");
 		slider = new Slider(20, 200, 50);
 		slider.setSnapToTicks(true);
 		slider.setShowTickMarks(true);
@@ -54,17 +49,16 @@ public class SimulationTab extends Tab {
 		simulation = new Rectangle(500, 500);
 		simulation.setFill(javafx.scene.paint.Color.rgb(220, 220, 220));
 		
-		controlButtons.getChildren().addAll(button, vertSeparator, slider, sliderValue);
+		controlButtons.getChildren().addAll(sliderLabel, slider, sliderValue, vertSeparator);
 		vbox.setPadding(new Insets(10, 10, 10, 10));
 		vbox.getChildren().addAll(controlButtons, simulation);
 		
 		this.setContent(vbox);
 	}
 	
-	
 
 	
 	public int getPopulation() {
-		return Integer.parseInt(sliderValue.getText());
+		return (int)Double.parseDouble(sliderValue.getText());
 	} //getPopulation
 }
