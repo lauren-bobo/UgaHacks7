@@ -22,6 +22,7 @@ double stickiness = .30;
 		int pop = Main.getPopulation();
 		return pop - getNumInfected(); 
 	} //getNumHealthy
+	
 	/**
 	 * 
 	 * @param a
@@ -40,9 +41,18 @@ double stickiness = .30;
 		
 } //attemptInfect
 	
+	public void spread(Person[] population) {
+		for( int i = 0 ; i< population.length; i++) {
+			for (int j=0 ; j< population.length; j++) {
+				if(population[i].distanceTo(population[j]) <= population[i].getSphereOfInfluence()) {
+					attemptInfect(population[i], population[j]); 
+				}
+			}
+		}
+	} //spread
 	
-	
-}
+} //LawOfFew
+
 
 /*
 double[] SN = new double[N + 1]; // Succeptible Normal People in Population at given index
