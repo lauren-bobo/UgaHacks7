@@ -25,10 +25,24 @@ public class LawOfTheFewModel {
 	}
 	public void determineIfInfected(Person a) {
 		boolean isInfected; 
-		
-		Switch(a.type){
-			
-		}
+		 switch (a.getType()) {
+		 case MAVEN: {
+			 
+		 }
+		 case CONNECTOR : {
+			 
+		 }
+		 case SALESPERSON : {
+			 
+		 }
+		 case NORMAL :{
+			 
+		 }
+		 default : {
+			 
+		 }
+			 
+		 }
 		
 	}
 	

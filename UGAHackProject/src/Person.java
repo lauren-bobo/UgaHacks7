@@ -1,33 +1,29 @@
+import javafx.scene.shape.Circle;
 
-public class Person {
-		private double x;
-		private double y; 
-		public enum type {NORMAL, MAVEN, SALESPERSON, CONNECTOR} ;
-		boolean isInfected; 
-		public type t;
+enum type {
+	NORMAL, MAVEN, SALESPERSON, CONNECTOR
+			}
+public class Person extends Circle{
+
+	boolean isInfected; 
+	public type t;
+	
+	public Person(){
+		super(getRandomNumber(0, 500), getRandomNumber(0, 500), 3);
+		isInfected=false;
+	} //Person
 		
-		
-	public Person(double initialX, double initialY, type t, boolean initialInfected ) {
-		x = initialX; 
-		y = initialY;
-		isInfected = initialInfected;
+	public Person(type t, boolean initialInfected){
+		super(getRandomNumber(0, 500), getRandomNumber(0, 500), 3);
 		this.t = t;
-	}
+		isInfected = initialInfected;
+	} //Person
 	
-	public void setX double newX) {
-		x = newX
-	}
-	
-	public void setX(double newY) {
-		x = newX
-	}
-	
-	public double getX() {
-		return x;
-	}
-	public double getY() {
-		return y; 
-	}
+	public Person(double cenX, double cenY, type t, boolean initialInfected){
+		super(cenX, cenY, 3);
+		this.t = t;
+		isInfected = initialInfected;
+	} //Person
 	
 	public void setType(type t) {
 		this.t = t;
@@ -41,11 +37,12 @@ public class Person {
 		this.isInfected = x;
 	}
 	
-	public void getType() {
-		return this.t;
+	public type getType() {
+		return t;
 	}
 	
+	public static int getRandomNumber(int min, int max) {
+	    return (int) ((Math.random() * (max - min)) + min);
+	} //getRandomNumber
 	
-	
-	
-}
+} //Person
