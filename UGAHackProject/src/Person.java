@@ -2,7 +2,7 @@
 public class Person {
 		private double x;
 		private double y; 
-		public enum type {Normal, Maven, Salesperson, Connector}  
+		public enum type {NORMAL, MAVEN, SALESPERSON, CONNECTOR}  
 		boolean isInfected; 
 		public type t;
 		
